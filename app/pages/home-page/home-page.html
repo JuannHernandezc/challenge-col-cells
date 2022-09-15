@@ -1,0 +1,84 @@
+<link rel="import" href="../../../components/cells-template-paper-drawer-panel/cells-template-paper-drawer-panel.html">
+<link rel="import" href="../../../components/cells-component-app-header/cells-component-app-header.html">
+<link rel="import" href="../../../components/cells-st-button/cells-st-button.html">
+<link rel="import" href="../../elements/card-ui/card-ui.html">
+<dom-module id="home-page">
+  <template>
+    <style>
+      :host {
+        display: block;
+        background-color: #fff;
+      }
+      .container-cards{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+      .card{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+    </style>
+    <cells-template-paper-drawer-panel mode="seamed">
+      <div slot="app__header">
+        <cells-component-app-header text="APP GIPHY">
+        </cells-component-app-header>
+      </div>
+      <div slot="app__main">
+          <div class="container-cards">
+            <template is="dom-repeat" items="[[dataImages]]">
+              <div class="card">
+                <card-ui title="[[item.title]]" url="[[item.url]]"></card-ui>
+                <cells-st-button>
+                  <button>Agregar al carro</button>
+                </cells-st-button>
+              </div>
+            </template>
+          </div>
+      </div>
+    </cells-template-paper-drawer-panel>
+  </template>
+
+  <script>
+    class HomePage extends Polymer.Element {
+
+      static get is() {
+        return 'home-page';
+      }
+      // Declare properties for the element's public API
+      static get properties() {
+        return {
+          dataImages: {type: Array},
+        };
+      }
+
+      constructor(){
+        super();
+        this.getData();
+      }
+
+      async getData(){
+        const url = 'https://api.giphy.com/v1/gifs/search?api_key=mx86gcqn1QMbH8sXj6cF0tJXVkdYlWyN&q=pug&limit=10&offset=0&rating=g&lang=en';
+        const answer = await fetch(url);
+        const { data } = await answer.json();
+        const gifs = data.map((img) => {
+          return {
+            id: img.id,
+            title: img.title,
+            url: img.images.original.url,
+          }
+        });
+        console.log(gifs);
+        this.dataImages = gifs;
+        return this.dataImages;
+      }
+    }
+    customElements.define(HomePage.is, HomePage);
+  </script>
+
+</dom-module>

@@ -3,7 +3,7 @@
 
   window.CellsPolymer.start({
     routes: {
-      'login': '/',
+      'home': '/',
       'another': '/another',
       'routerExample': '/routerExample/:queryStringToPrettyUrl'
     }

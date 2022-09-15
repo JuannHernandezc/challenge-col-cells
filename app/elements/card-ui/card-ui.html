@@ -1,0 +1,45 @@
+<link rel="import" href="../../../components/cells-image-card/cells-image-card.html">
+<dom-module id="card-ui">
+  <template>
+    <style>
+      :host {
+        display: block;
+        background-color: #fff;
+
+      }
+      cells-image-card{
+        width: 410px;
+        height: 357px;
+        margin: 10px;
+      }
+    </style>
+          <cells-image-card 
+            heading="[[title]]" 
+            alt="[[title]]" 
+            default-image-url="[[url]]" >
+          </cells-image-card>
+  </template>
+
+  <script>
+    class CardUi extends Polymer.Element {
+
+      static get is() {
+        return 'card-ui';
+      }
+
+      // Declare properties for the element's public API
+      static get properties() {
+        return {
+          title:{type: String},
+          url: {type: String}
+        };
+      }
+      constructor() {
+        super();
+      }
+    }
+
+    customElements.define(CardUi.is, CardUi);
+  </script>
+
+</dom-module>
