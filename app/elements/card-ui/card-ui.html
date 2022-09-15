@@ -14,9 +14,11 @@
       }
     </style>
           <cells-image-card 
-            heading="[[title]]" 
             alt="[[title]]" 
             default-image-url="[[url]]" >
+            <div slot="card-content">
+              [[title]]
+            </div>
           </cells-image-card>
   </template>
 
